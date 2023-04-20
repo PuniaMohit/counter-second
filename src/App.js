@@ -2,6 +2,8 @@ import "./App.css";
 import CounterButton from "./components/CounterButton/counterButton";
 import { useState, useRef } from "react";
 import Card from "./components/Card/card";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
   const [isBoxOpen, setIsBoxOpen] = useState(false);

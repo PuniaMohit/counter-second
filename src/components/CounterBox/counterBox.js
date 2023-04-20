@@ -1,18 +1,19 @@
 import "./counterBox.css";
 
-function CounterBox(prop) {
+function CounterBox(props) {
+  const { time, isRunning, onStartClick, onPauseClick } = props;
   return (
     <div className="counter-box">
       <div className="stopwatch">
-        <span>{`${Math.floor(prop.time / 60)}:${
-          prop.time % (60).toString().padStart(2, "0")
+        <span>{`${Math.floor(time / 60)}:${
+          time % (60).toString().padStart(2, "0")
         }`}</span>
       </div>
       <div className="stopwatch-controls">
-        {!prop.isRunning ? (
-          <button onClick={prop.onStartClick}>Start</button>
+        {!isRunning ? (
+          <button onClick={onStartClick}>Start</button>
         ) : (
-          <button onClick={prop.onPauseClick}>Pause</button>
+          <button onClick={onPauseClick}>Pause</button>
         )}
       </div>
     </div>
