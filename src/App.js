@@ -1,17 +1,16 @@
-import "./App.css";
-import CounterButton from "./components/CounterButton/counterButton";
-import { useState, useRef } from "react";
-import Card from "./components/Card/card";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState } from "react";
+import { useRef } from "react";
+import Modal from "./components/Card/modal";
+import "bootstrap/dist/css/bootstrap.css";
 
-function App() {
-  const [isBoxOpen, setIsBoxOpen] = useState(false);
+const App = () => {
+  const [showModal, setShowModal] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
   const [time, setTime] = useState(0);
   const intervalRef = useRef(null);
-  const handleCloseBox = () => {
-    setIsBoxOpen(false);
-  };
+
+  const handleShowModal = () => setShowModal(true);
+  const handleHideModal = () => setShowModal(false);
 
   const handleStartClick = () => {
     setIsRunning(true);
@@ -25,27 +24,31 @@ function App() {
     clearInterval(intervalRef.current);
   };
 
-  const handleButtonClick = () => {
-    setIsBoxOpen(true);
-  };
-
   return (
-    <div className="counter-app">
-      <CounterButton onClick={handleButtonClick} />
-      {isBoxOpen ? (
-        <Card
-          setIsBoxOpen={setIsBoxOpen}
+    <div>
+      <div className="container text-center">
+        <button className="btn btn-info btn-lg mt-5" onClick={handleShowModal}>
+          Open Modal
+        </button>
+        <Modal
+          handleHideModal={handleHideModal}
+          showModal={showModal}
           isRunning={isRunning}
           time={time}
           handleStartClick={handleStartClick}
           handlePauseClick={handlePauseClick}
-          handleCloseBox={handleCloseBox}
         />
+      </div>
+      {showModal ? (
+        <div
+          className="modal-backdrop fade in opacity-50 "
+          onClick={handleHideModal}
+        ></div>
       ) : (
         <div></div>
       )}
     </div>
   );
-}
+};
 
 export default App;
