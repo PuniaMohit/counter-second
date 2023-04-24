@@ -9,8 +9,7 @@ const App = () => {
   const [time, setTime] = useState(0);
   const intervalRef = useRef(null);
 
-  const handleShowModal = () => setShowModal(true);
-  const handleHideModal = () => setShowModal(false);
+  const handleModal = () => setShowModal(!showModal);
 
   const handleStartClick = () => {
     setIsRunning(true);
@@ -27,11 +26,11 @@ const App = () => {
   return (
     <div>
       <div className="container text-center">
-        <button className="btn btn-info btn-lg mt-5" onClick={handleShowModal}>
+        <button className="btn btn-info btn-lg mt-5" onClick={handleModal}>
           Open Modal
         </button>
         <Modal
-          handleHideModal={handleHideModal}
+          handleModal={handleModal}
           showModal={showModal}
           isRunning={isRunning}
           time={time}
@@ -42,7 +41,7 @@ const App = () => {
       {showModal ? (
         <div
           className="modal-backdrop fade in opacity-50 "
-          onClick={handleHideModal}
+          onClick={handleModal}
         ></div>
       ) : (
         <div></div>

@@ -1,11 +1,10 @@
 import { useEffect } from "react";
-import $ from "jquery";
 import CounterBox from "../CounterBox/counterBox";
 
 function Modal(props) {
   const {
     showModal,
-    handleHideModal,
+    handleModal,
     isRunning,
     time,
     handleStartClick,
@@ -14,9 +13,9 @@ function Modal(props) {
 
   useEffect(() => {
     if (showModal) {
-      $("body")[0].classList.add("modal-open");
+      document.body.classList.add("modal-open");
     } else {
-      $("body")[0].classList.remove("modal-open");
+      document.body.classList.remove("modal-open");
     }
   }, [showModal]);
 
@@ -44,7 +43,7 @@ function Modal(props) {
             className="close"
             data-dismiss="modal"
             aria-label="Close"
-            onClick={handleHideModal}
+            onClick={handleModal}
           >
             <span aria-hidden="true">&times;</span>
           </button>
