@@ -1,25 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { useRef } from "react";
+import Modal from "./components/Card/modal";
+import "bootstrap/dist/css/bootstrap.css";
 
-function App() {
+const App = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
+  const [time, setTime] = useState(0);
+  const intervalRef = useRef(null);
+
+  const handleModal = () => setShowModal(!showModal);
+
+  const handleStartClick = () => {
+    setIsRunning(true);
+    intervalRef.current = setInterval(() => {
+      setTime((prevTime) => prevTime + 1);
+    }, 1000);
+  };
+
+  const handlePauseClick = () => {
+    setIsRunning(false);
+    clearInterval(intervalRef.current);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="container text-center">
+        <button className="btn btn-info btn-lg mt-5" onClick={handleModal}>
+          Open Modal
+        </button>
+        <Modal
+          handleModal={handleModal}
+          showModal={showModal}
+          isRunning={isRunning}
+          time={time}
+          handleStartClick={handleStartClick}
+          handlePauseClick={handlePauseClick}
+        />
+      </div>
+      {showModal ? (
+        <div
+          className="modal-backdrop fade in opacity-50 "
+          onClick={handleModal}
+        ></div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
-}
+};
 
 export default App;
